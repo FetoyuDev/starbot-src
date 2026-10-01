@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economia — Starbot Docs</title>
+  <meta name="description" content="Starcoins, carteira, banco, trabalho e transferências entre usuários.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>💰 Sistema de Economia</h1>
+      <p class="subtitle">Starcoins, carteira, banco, trabalho e transferências entre usuários.</p>
+      
+<h2>Visão geral</h2>
+<p>O Starbot tem um sistema de economia global chamado <strong>starcoins</strong>. Cada usuário tem uma carteira (saldo visível) e um banco (saldo seguro). As starcoins são compartilhadas entre todos os servidores onde o bot está — você ganha num servidor e pode gastar em outro.</p>
+
+<h2>Como ganhar starcoins</h2>
+<h3>Trabalhar</h3>
+<p>O comando <code>/trabalhar</code> é a forma principal de ganhar starcoins. A cada execução você recebe entre 50 e 200 starcoins (com um multiplier se você tiver um booster ativo). O cooldown é de 30 minutos.</p>
+<div class="code-block"><pre><code>/trabalhar
+# "Você entregou encomendas e faturou 150 starcoins!"</code></pre></div>
+
+<h3>Transferências</h3>
+<p>Outros usuários podem te enviar starcoins via <code>/pagar</code>. Isso é útil para recompensas, apostas amigáveis ou comércio em servidores de RP.</p>
+<div class="code-block"><pre><code>/pagar usuario: @Maria valor: 100</code></pre></div>
+
+<h3>Boosters</h3>
+<p>Administradores podem ativar boosters globais que multiplicam o ganho de starcoins. Se um booster de 2x estiver ativo, um <code>/trabalhar</code> que daria 150 starcoins passa a dar 300.</p>
+
+<h2>Carteira vs Banco</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Aspecto</th><th>Carteira</th><th>Banco</th></tr></thead>
+<tbody>
+<tr><td>Risco de roubo</td><td>Sim — pode ser roubado (se o comando /roubar estiver habilitado)</td><td>Não — seguro</td></tr>
+<tr><td>Para pagar outros</td><td>Sim — /pagar usa a carteira</td><td>Não — precisa sacar primeiro</td></tr>
+<tr><td>Para receber</td><td>Sim — pagamentos entram na carteira</td><td>Não — só via /depositar</td></tr>
+<tr><td>Comandos</td><td>—</td><td>/depositar, /sacar</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Comandos disponíveis</h2>
+<ul>
+  <li><code>/saldo</code> — vê seu saldo ou de outro user</li>
+  <li><code>/trabalhar</code> — ganha starcoins (cooldown 30min)</li>
+  <li><code>/pagar</code> — transfere para outro user</li>
+  <li><code>/depositar</code> — move carteira → banco</li>
+  <li><code>/sacar</code> — move banco → carteira</li>
+</ul>
+
+<div class="callout callout-success">
+  <span class="callout-icon">💡</span>
+  <div class="callout-content">
+    <div class="callout-title">Estratégia</div>
+    <p>Mantenha a maior parte do seu saldo no banco. Só saque o que precisa para pagamentos imediatos. Isso protege contra roubos se o comando <code>/roubar</code> estiver habilitado no servidor.</p>
+  </div>
+</div>
+
+<h2>Ranking</h2>
+<p>Administradores podem acessar o ranking de starcoins via o painel web (<code>/dashboard</code>). Os 10 usuários mais ricos do bot aparecem num leaderboard global.</p>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

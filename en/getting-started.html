@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started — Starbot Docs</title>
+  <meta name="description" content="Add Starbot to your server in 5 minutes.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🚀 Getting Started</h1>
+      <p class="subtitle">Add Starbot to your server in 5 minutes.</p>
+      
+<h2>1. Invite the bot</h2>
+<p>Starbot uses slash commands (commands with <code>/</code>), which are the modern and recommended way to interact with bots on Discord. To use the bot, you need to add it to your server with the correct permissions.</p>
+
+<h3>Recommended permissions</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Category</th><th>Permissions</th></tr></thead>
+<tbody>
+<tr><td>General</td><td>View channels, send messages, embed links, attach files, read history</td></tr>
+<tr><td>Members</td><td>Kick, ban, manage roles, timeout</td></tr>
+<tr><td>Messages</td><td>Manage messages, delete messages</td></tr>
+<tr><td>Voice</td><td>Connect, speak, use voice activity</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Required intents</h3>
+<p>In Developer Portal → Bot, enable:</p>
+<ul>
+  <li><strong>MESSAGE CONTENT INTENT</strong></li>
+  <li><strong>SERVER MEMBERS INTENT</strong> — needed for member join/leave events and role recovery.</li>
+</ul>
+
+<h2>2. Register slash commands</h2>
+<p>Slash commands need to be registered once with the Discord API. The bot does this when you run the deploy command:</p>
+<div class="code-block"><pre><code># In the bot folder, after npm install:
+npm run deploy</code></pre></div>
+<p>Commands appear in Discord in up to 1 hour (global registration) or instantly if <code>DISCORD_GUILD_ID</code> is set for a specific server.</p>
+
+<h2>3. Configure the bot</h2>
+<p>After the bot is online, configure the main features:</p>
+<ul>
+  <li><code>/configurar-boas-vindas</code> — welcome message and auto role for new members.</li>
+  <li><code>/configurar-tickets</code> — ticket category, support role, log channel.</li>
+  <li><code>/configurar-mc</code> — Minecraft server IPs for <code>/mcstatus</code>.</li>
+  <li><code>/logs</code> — log channels for deleted messages, joins/leaves, bans.</li>
+</ul>
+
+<h3>Or use the web dashboard</h3>
+<p>Instead of typing commands, you can use the bot's web panel. Access <code>http://localhost:8080/dashboard</code> (or your bot's public domain) and log in with Discord. You'll see all servers where you're admin and the bot is present, with visual forms to configure everything.</p>
+
+<div class="callout callout-success">
+  <span class="callout-icon">✅</span>
+  <div class="callout-content">
+    <div class="callout-title">Ready to use!</div>
+    <p>After these 3 steps, all 73 commands are available. Type <code>/</code> in your server to see the complete list with autocomplete.</p>
+  </div>
+</div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

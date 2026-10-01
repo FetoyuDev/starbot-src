@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moderação — Starbot Docs</title>
+  <meta name="description" content="Ferramentas para manter seu servidor seguro: banir, avisar, limpar, gerenciar cargos.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🔨 Moderação</h1>
+      <p class="subtitle">Ferramentas para manter seu servidor seguro: banir, avisar, limpar, gerenciar cargos.</p>
+      
+<h2>Comandos de punição</h2>
+<h3>Banir</h3>
+<p>Remove permanentemente um membro do servidor. O banimento pode ser revertido pelo painel do Discord ou pelo comando <code>/desbanir</code> (se disponível).</p>
+<div class="code-block"><pre><code>/banir usuario: @Spammer motivo: Spam de links dias: 7</code></pre></div>
+<p>O parâmetro <code>dias</code> apaga mensagens recentes do usuário (0-7 dias).</p>
+
+<h3>Expulsar</h3>
+<p>Diferente do banimento, a expulsão permite que o membro volte com um convite.</p>
+<div class="code-block"><pre><code>/expulsar usuario: @João motivo: Comportamento tóxico</code></pre></div>
+
+<h3>Castigar (Timeout)</h3>
+<p>Aplica um timeout — o membro fica mutado (não pode enviar mensagens nem reagir) pela duração especificada.</p>
+<div class="code-block"><pre><code>/castigar usuario: @Falador duracao: 10m motivo: Flood no chat</code></pre></div>
+<p>Durações suportadas: <code>10s</code>, <code>5m</code>, <code>2h</code>, <code>1d</code>, etc.</p>
+
+<h2>Sistema de avisos (warns)</h2>
+<p>O sistema de warns é uma alternativa escalável ao banimento direto. Cada warn fica registrado no perfil do membro. Administradores podem configurar punições automáticas baseadas em número de warns.</p>
+
+<h3>Comandos</h3>
+<ul>
+  <li><code>/avisar usuario: @Maria motivo: Linguagem inadequada</code> — registra um aviso</li>
+  <li><code>/avisos usuario: @Maria</code> — lista todos os avisos</li>
+  <li><code>/configurar-warns</code> — configura punições automáticas</li>
+</ul>
+
+<h3>Punições automáticas</h3>
+<p>No <code>/configurar-warns</code>, você define limites:</p>
+<div class="code-block"><pre><code>3 warns → mute automático de 60 minutos
+5 warns → banimento automático</code></pre></div>
+<p>Quando um membro atinge o limite, o bot aplica a punição sem intervenção manual.</p>
+
+<h2>Limpar mensagens</h2>
+<p>Apaga múltiplas mensagens de uma vez. Útil para limpar spam.</p>
+<div class="code-block"><pre><code>/limpar quantidade: 50
+/limpar quantidade: 20 usuario: @Spammer</code></pre></div>
+
+<div class="callout callout-warning">
+  <span class="callout-icon">⚠️</span>
+  <div class="callout-content">
+    <div class="callout-title">Limite do Discord</div>
+    <p>O Discord só permite apagar mensagens com até 14 dias. Mensagens mais antigas não podem ser removidas em lote.</p>
+  </div>
+</div>
+
+<h2>Gerenciamento de cargos</h2>
+<ul>
+  <li><code>/cargo acao: adicionar usuario: @João cargo: @VIP</code> — adiciona cargo</li>
+  <li><code>/cargo acao: remover usuario: @João cargo: @VIP</code> — remove cargo</li>
+  <li><code>/criar-cargo nome: Membro VIP cor: #FFAA00</code> — cria novo cargo</li>
+  <li><code>/cor-cargo cargo: @VIP cor: #5865f2</code> — muda cor de um cargo</li>
+</ul>
+
+<h2>Logs de moderação</h2>
+<p>Configure canais de log para registrar eventos automaticamente:</p>
+<div class="code-block"><pre><code>/logs tipo: mensagem-deletada canal: #mod-logs
+/logs tipo: entrada-saida canal: #member-logs
+/logs tipo: banimento canal: #ban-logs</code></pre></div>
+
+<p>Cada tipo de log pode ser ativado/desativado individualmente no painel web.</p>
+
+<h2>Slow mode</h2>
+<p>Define o tempo mínimo entre mensagens de um mesmo usuário no canal atual.</p>
+<div class="code-block"><pre><code>/slowmode segundos: 30</code></pre></div>
+
+<h2>Desmutar em massa</h2>
+<p>Remove o timeout de TODOS os membros mutados de uma vez. Útil se você aplicou timeouts em massa por engano ou quer resetar o servidor.</p>
+<div class="code-block"><pre><code>/desmutar-massa</code></pre></div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

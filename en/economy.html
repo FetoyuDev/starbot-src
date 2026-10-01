@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economy — Starbot Docs</title>
+  <meta name="description" content="Starcoins, wallet, bank, work and user transfers.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>💰 Economy System</h1>
+      <p class="subtitle">Starcoins, wallet, bank, work and user transfers.</p>
+      
+<h2>Overview</h2>
+<p>Starbot has a global economy system called <strong>starcoins</strong>. Each user has a wallet (visible balance) and a bank (safe balance). Starcoins are shared across all servers where the bot is — earn in one server, spend in another.</p>
+
+<h2>How to earn starcoins</h2>
+<h3>Work</h3>
+<p>The <code>/trabalhar</code> command is the main way to earn starcoins. Each execution gives between 50 and 200 starcoins (with multiplier if you have an active booster). Cooldown is 30 minutes.</p>
+
+<h3>Transfers</h3>
+<p>Other users can send you starcoins via <code>/pagar</code>.</p>
+
+<h2>Wallet vs Bank</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Aspect</th><th>Wallet</th><th>Bank</th></tr></thead>
+<tbody>
+<tr><td>Robbery risk</td><td>Yes — can be robbed (if /roubar is enabled)</td><td>No — safe</td></tr>
+<tr><td>To pay others</td><td>Yes — /pagar uses wallet</td><td>No — must withdraw first</td></tr>
+<tr><td>To receive</td><td>Yes — payments enter wallet</td><td>No — only via /depositar</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Available commands</h2>
+<ul>
+  <li><code>/saldo</code> — view balance</li>
+  <li><code>/trabalhar</code> — earn starcoins</li>
+  <li><code>/pagar</code> — transfer to another user</li>
+  <li><code>/depositar</code> — move wallet → bank</li>
+  <li><code>/sacar</code> — move bank → wallet</li>
+</ul>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

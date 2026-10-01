@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diversão — Starbot Docs</title>
+  <meta name="description" content="Casamento, jogos, memes e bobagens divertidas para animar o servidor.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🎮 Comandos de Diversão</h1>
+      <p class="subtitle">Casamento, jogos, memes e bobagens divertidas para animar o servidor.</p>
+      
+<h2>Sistema de casamento</h2>
+<h3>/casar</h3>
+<p>Pede alguém em casamento. O outro usuário precisa aceitar (botão) em até 30s. Custa 500 starcoins.</p>
+<div class="code-block"><pre><code>/casar usuario: @Maria</code></pre></div>
+
+<h3>/divorciar</h3>
+<p>Divorcia do seu cônjuge. Sem custo, mas o casamento anterior é dissolvido.</p>
+
+<h2>Jogos</h2>
+<h3>/dado</h3>
+<p>Rola um dado. Sem argumentos, rola 1d6. Com argumentos, pode ser customizado.</p>
+<div class="code-block"><pre><code>/dado
+/dado lados: 20  # dado de 20 lados (D&D)</code></pre></div>
+
+<h3>/ppt</h3>
+<p>Pedra-papel-tesoura contra o bot.</p>
+<div class="code-block"><pre><code>/ppt escolha: pedra</code></pre></div>
+
+<h3>/shippar</h3>
+<p>Calcula a "compatibilidade amorosa" entre dois usuários (algoritmo aleatório divertido).</p>
+<div class="code-block"><pre><code>/shippar user1: @João user2: @Maria</code></pre></div>
+
+<h2>Conteúdo aleatório</h2>
+<h3>/vocesabia</h3>
+<p>Fato aleatório "você sabia?" — do banco de fatos do bot.</p>
+
+<h3>/meme</h3>
+<p>Meme aleatório do Reddit (subreddits curados: r/memes, r/dankmemes, etc).</p>
+
+<h3>/gato</h3>
+<p>Foto aleatória de gato (da API <a href="https://thecatapi.com" target="_blank">thecatapi.com</a>).</p>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

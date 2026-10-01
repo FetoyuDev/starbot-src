@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moderation — Starbot Docs</title>
+  <meta name="description" content="Tools to keep your server safe: ban, warn, clear, manage roles.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🔨 Moderation</h1>
+      <p class="subtitle">Tools to keep your server safe: ban, warn, clear, manage roles.</p>
+      
+<h2>Punishment commands</h2>
+<h3>Ban</h3>
+<div class="code-block"><pre><code>/banir user: @Spammer reason: Link spam days: 7</code></pre></div>
+
+<h3>Timeout (castigar)</h3>
+<div class="code-block"><pre><code>/castigar user: @Talker duration: 10m reason: Spam</code></pre></div>
+
+<h2>Warn system</h2>
+<p>Warns are a scalable alternative to direct bans. Each warn is registered on the member's profile. Admins can configure automatic punishments based on warn count.</p>
+
+<h3>Automatic punishments</h3>
+<div class="code-block"><pre><code>3 warns → automatic 60min mute
+5 warns → automatic ban</code></pre></div>
+
+<h2>Clear messages</h2>
+<div class="code-block"><pre><code>/limpar amount: 50
+/limpar amount: 20 user: @Spammer</code></pre></div>
+
+<h2>Role management</h2>
+<ul>
+  <li><code>/cargo action: add user: @John role: @VIP</code> — add role</li>
+  <li><code>/criar-cargo name: VIP color: #FFAA00</code> — create role</li>
+</ul>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music — Starbot Docs</title>
+  <meta name="description" content="Playing music from YouTube, Spotify and SoundCloud with real-time audio filters.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🎵 Music System</h1>
+      <p class="subtitle">Playing music from YouTube, Spotify and SoundCloud with real-time audio filters.</p>
+      
+<h2>How to play music</h2>
+<div class="code-block"><pre><code>/tocar query: Never Gonna Give You Up
+/tocar query: https://youtu.be/dQw4w9WgXcQ</code></pre></div>
+
+<h2>Control panel</h2>
+<p>When music starts, the bot opens an interactive panel with buttons:</p>
+<ul>
+  <li>⏮️ Previous, ⏸️ Pause, ⏭️ Skip, ⏹️ Stop</li>
+  <li>🔉 Volume -, 🔊 Volume +</li>
+  <li>📜 Queue, 🔀 Shuffle, 🔁 Repeat</li>
+  <li>🔄 Refresh, 📝 Lyrics</li>
+</ul>
+
+<h2>Audio filters</h2>
+<ul>
+  <li><strong>Nightcore</strong> 🎶 — speeds up and raises pitch</li>
+  <li><strong>Bass Boost</strong> 🔊 — boosts bass</li>
+  <li><strong>8D</strong> 🌀 — rotating spatial audio</li>
+  <li><strong>Karaoke</strong> 🎤 — removes vocals</li>
+  <li><strong>Vaporwave</strong> 🌆 — slows down</li>
+</ul>
+
+<h2>Playlists</h2>
+<div class="code-block"><pre><code>/playlist tocar query: https://open.spotify.com/playlist/...
+/playlist salvar name: My favorites
+/playlist listar</code></pre></div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

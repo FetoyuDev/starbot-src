@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Starbot Docs</title>
+  <meta name="description" content="Solutions to common problems.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>❓ FAQ</h1>
+      <p class="subtitle">Solutions to common problems.</p>
+      
+<h2>Commands don't appear</h2>
+<ol>
+  <li>Did you run <code>npm run deploy</code>?</li>
+  <li>Was the bot invited with <code>applications.commands</code> scope?</li>
+  <li>Is <code>DISCORD_CLIENT_ID</code> correct?</li>
+  <li>Wait 1 hour for global propagation, or set <code>DISCORD_GUILD_ID</code> for instant testing.</li>
+</ol>
+
+<h2>Bot doesn't connect</h2>
+<ol>
+  <li>Correct token?</li>
+  <li>MESSAGE CONTENT INTENT and SERVER MEMBERS INTENT enabled?</li>
+  <li>MongoDB accessible?</li>
+</ol>
+
+<h2>Music doesn't play</h2>
+<ol>
+  <li>Are you in a voice channel?</li>
+  <li>Does the bot have Connect and Speak permissions?</li>
+  <li>ffmpeg-static installed?</li>
+</ol>
+
+<h2>Dashboard session expires</h2>
+<ol>
+  <li>Are you on HTTPS? Secure cookies require HTTPS.</li>
+  <li>Set <code>NODE_ENV=development</code> for localhost.</li>
+</ol>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

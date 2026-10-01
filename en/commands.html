@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commands — Starbot Docs</title>
+  <meta name="description" content="All 73 slash commands available in Starbot, organized by category.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>📋 Commands List</h1>
+      <p class="subtitle">All 73 slash commands available in Starbot, organized by category.</p>
+      
+<p>Starbot uses slash commands. Type <code>/</code> in your server to see the complete list with autocomplete. Below is documentation for each command.</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-content">
+    <div class="callout-title">How to use</div>
+    <p>Type <code>/command-name</code> in Discord. Required arguments are marked with <code>*</code>, optional in brackets <code>[ ]</code>.</p>
+  </div>
+</div>
+
+<h2 id="economy">💰 Economy</h2>
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/saldo</span><span class="command-category">Economy</span></div>
+  <div class="command-description">Shows starcoins balance (wallet + bank) of a user.</div>
+  <div class="command-example">/saldo user: @Mary</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/trabalhar</span><span class="command-category">Economy</span></div>
+  <div class="command-description">Work to earn starcoins. ~30 min cooldown.</div>
+  <div class="command-example">/trabalhar</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/pagar</span><span class="command-category">Economy</span></div>
+  <div class="command-description">Transfer starcoins from your wallet to another user.</div>
+  <div class="command-example">/pagar user: @John amount: 100</div>
+</div>
+
+<h2 id="moderation">🔨 Moderation</h2>
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/banir</span><span class="command-category">Moderation</span></div>
+  <div class="command-description">Bans a member from the server.</div>
+  <div class="command-example">/banir user: @Spammer reason: Link spam days: 1</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/avisar</span><span class="command-category">Moderation</span></div>
+  <div class="command-description">Registers a warning on a member's profile.</div>
+  <div class="command-example">/avisar user: @Mary reason: Inappropriate language</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/limpar</span><span class="command-category">Moderation</span></div>
+  <div class="command-description">Deletes multiple messages at once (1-100).</div>
+  <div class="command-example">/limpar amount: 50 user: @Spammer</div>
+</div>
+
+<h2 id="music">🎵 Music</h2>
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/tocar</span><span class="command-category">Music</span></div>
+  <div class="command-description">Plays a song or playlist from YouTube, Spotify, or SoundCloud.</div>
+  <div class="command-example">/tocar query: Never Gonna Give You Up source: YouTube</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/playlist</span><span class="command-category">Music</span></div>
+  <div class="command-description">Plays a full playlist or manages your saved personal playlists.</div>
+  <div class="command-example">/playlist tocar query: https://open.spotify.com/playlist/...</div>
+</div>
+
+<h2 id="tickets">🎫 Tickets</h2>
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/configurar-tickets</span><span class="command-category">Tickets</span></div>
+  <div class="command-description">Configures the ticket system: category, support role, log channel.</div>
+  <div class="command-example">/configurar-tickets category: #Support role: @Staff log: #ticket-logs</div>
+</div>
+
+<h2 id="minecraft">⛏️ Minecraft</h2>
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/mcstatus</span><span class="command-category">Minecraft</span></div>
+  <div class="command-description">Shows real-time status of a Minecraft server (Java or Bedrock).</div>
+  <div class="command-example">/mcstatus edition: Java</div>
+</div>
+
+<h2 id="information">📊 Information</h2>
+<p>Commands that show info about users, servers, channels, roles, and the bot itself.</p>
+<ul>
+  <li><code>/perfil</code> — full user profile</li>
+  <li><code>/avatar</code> — user avatar in large size</li>
+  <li><code>/servidor-info</code> — server info</li>
+  <li><code>/bot-info</code> — bot info (servers, ping, uptime)</li>
+  <li><code>/ajuda</code> — interactive command list</li>
+</ul>
+
+<h2 id="fun">🎮 Fun</h2>
+<div class="command-card">
+  <div class="command-header"><span class="command-name">/casar</span><span class="command-category">Fun</span></div>
+  <div class="command-description">Propose marriage to someone. Costs starcoins.</div>
+  <div class="command-example">/casar user: @Mary</div>
+</div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

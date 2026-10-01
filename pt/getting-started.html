@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primeiros Passos — Starbot Docs</title>
+  <meta name="description" content="Adicione o Starbot ao seu servidor em 5 minutos.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🚀 Primeiros Passos</h1>
+      <p class="subtitle">Adicione o Starbot ao seu servidor em 5 minutos.</p>
+      
+<h2>1. Convidar o bot</h2>
+<p>O Starbot usa slash commands (comandos com <code>/</code>), que são a forma moderna e recomendada pelo Discord. Para usar o bot, você precisa adicioná-lo ao seu servidor com as permissões corretas.</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">🔗</span>
+  <div class="callout-content">
+    <div class="callout-title">Link de convite</div>
+    <p>Use o link oficial do bot (disponível no topo do servidor de suporte ou no <a href="https://top.gg" target="_blank">top.gg</a>). Certifique-se de que o link inclua o escopo <code>applications.commands</code> além de <code>bot</code>.</p>
+  </div>
+</div>
+
+<h3>Permissões recomendadas</h3>
+<p>Ao gerar o link de convite no <a href="https://discord.com/developers/applications" target="_blank">Discord Developer Portal</a>, marque as seguintes permissões:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Categoria</th><th>Permissões</th></tr></thead>
+<tbody>
+<tr><td>Geral</td><td>Ver canais, enviar mensagens, embed links, anexar arquivos, ler histórico</td></tr>
+<tr><td>Membros</td><td>Expulsar, banir, gerenciar cargos, timeout</td></tr>
+<tr><td>Mensagens</td><td>Gerenciar mensagens, apagar mensagens</td></tr>
+<tr><td>Voz</td><td>Conectar, falar, usar atividade de voz</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Intents obrigatórios</h3>
+<p>No Developer Portal → Bot, ative os seguintes intents:</p>
+<ul>
+  <li><strong>MESSAGE CONTENT INTENT</strong> — necessário para comandos de prefixo (não usado pelo Starbot, mas boa prática).</li>
+  <li><strong>SERVER MEMBERS INTENT</strong> — necessário para eventos de entrada/saída de membros e recovery roles.</li>
+  <li><strong>PRESENCE INTENT</strong> — opcional, só se você quer status de presença.</li>
+</ul>
+
+<h2>2. Registrar comandos slash</h2>
+<p>Slash commands precisam ser registrados uma vez na API do Discord. O bot faz isso automaticamente quando você roda o comando de deploy:</p>
+
+<div class="code-block"><pre><code># Na pasta do bot, depois de npm install:
+npm run deploy</code></pre></div>
+
+<p>Após rodar este comando, os comandos aparecem no Discord em até 1 hora (registro global) ou instantaneamente se <code>DISCORD_GUILD_ID</code> estiver configurado no <code>.env</code> para um servidor específico.</p>
+
+<div class="callout callout-warning">
+  <span class="callout-icon">⚠️</span>
+  <div class="callout-content">
+    <div class="callout-title">Comandos não aparecem?</div>
+    <p>Se os comandos não aparecerem, verifique: (1) você rodou <code>npm run deploy</code>? (2) o bot foi convidado com escopo <code>applications.commands</code>? (3) <code>DISCORD_CLIENT_ID</code> está correto no <code>.env</code>?</p>
+  </div>
+</div>
+
+<h2>3. Configurar o bot</h2>
+<p>Depois que o bot está online, configure os recursos principais do seu servidor:</p>
+
+<h3>Comandos de configuração essenciais</h3>
+<ul>
+  <li><code>/configurar-boas-vindas</code> — define mensagem e cargo automático para novos membros.</li>
+  <li><code>/configurar-tickets</code> — configura categoria, cargo de suporte e canal de log para tickets.</li>
+  <li><code>/configurar-mc</code> — define IPs de servidores Minecraft para o <code>/mcstatus</code>.</li>
+  <li><code>/logs</code> — configura canais de log para mensagens deletadas, entradas/saídas, banimentos.</li>
+</ul>
+
+<h3>Ou use o Dashboard web</h3>
+<p>Em vez de digitar comandos, você pode usar o painel web do bot. Acesse <code>http://localhost:8080/dashboard</code> (ou o domínio público do seu bot) e faça login com Discord. Você verá todos os servidores onde você é admin e o bot está presente, com formulários visuais para configurar tudo.</p>
+
+<div class="callout callout-success">
+  <span class="callout-icon">✅</span>
+  <div class="callout-content">
+    <div class="callout-title">Pronto para usar!</div>
+    <p>Após esses 3 passos, todos os 73 comandos estão disponíveis. Digite <code>/</code> no seu servidor para ver a lista completa com autocomplete.</p>
+  </div>
+</div>
+
+<h2>4. Próximos passos</h2>
+<ul>
+  <li><a href="/pt/comandos.html">Ver lista completa de comandos</a></li>
+  <li><a href="/pt/economia.html">Aprender sobre o sistema de economia</a></li>
+  <li><a href="/pt/musica.html">Como tocar música</a></li>
+  <li><a href="/admin/setup-avancado.html">Configuração avançada (admins)</a></li>
+</ul>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tickets — Starbot Docs</title>
+  <meta name="description" content="Canal privado de suporte entre membros e staff, com transcrição automática.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🎫 Sistema de Tickets</h1>
+      <p class="subtitle">Canal privado de suporte entre membros e staff, com transcrição automática.</p>
+      
+<h2>O que é</h2>
+<p>Tickets são canais privados temporários criados sob demanda. Um membro clica num botão e o bot cria um canal só pra ele + a staff, com botões de <strong>Assumir</strong> e <strong>Fechar</strong>.</p>
+
+<h2>Configuração</h2>
+<h3>1. Configurar o sistema</h3>
+<div class="code-block"><pre><code>/configurar-tickets categoria: #Suporte cargo: @Staff log: #ticket-logs</code></pre></div>
+<ul>
+  <li><strong>Categoria:</strong> onde os canais de ticket serão criados.</li>
+  <li><strong>Cargo:</strong> quem vê e responde os tickets (staff).</li>
+  <li><strong>Canal de log:</strong> onde o bot registra abertura/fechamento.</li>
+</ul>
+
+<h3>2. Postar o painel</h3>
+<div class="code-block"><pre><code>/painel-tickets</code></pre></div>
+<p>Isso posta uma embed com um botão <strong>"🎫 Abrir Ticket"</strong> no canal onde o comando foi executado. Membros clicam pra abrir.</p>
+
+<h2>Fluxo do usuário</h2>
+<ol>
+  <li>Membro clica em <strong>Abrir Ticket</strong></li>
+  <li>Bot cria um canal <code>#ticket-username</code> na categoria configurada</li>
+  <li>Bot envia embed de boas-vindas no canal + menciona o cargo de staff</li>
+  <li>Membro descreve o problema</li>
+  <li>Staff clica em <strong>Assumir</strong> (marca quem está cuidando)</li>
+  <li>Quando resolvido, staff clica em <strong>Fechar</strong></li>
+  <li>Bot gera transcrição HTML, envia no canal de log, e deleta o canal em 5s</li>
+</ol>
+
+<h2>Botões disponíveis no ticket</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Botão</th><th>Função</th></tr></thead>
+<tbody>
+<tr><td>✋ Assumir</td><td>Marca você como responsável pelo ticket</td></tr>
+<tr><td>🔒 Fechar</td><td>Inicia o fechamento (com confirmação)</td></tr>
+<tr><td>📄 Transcrição</td><td>Gera HTML com todas as mensagens do ticket</td></tr>
+<tr><td>🌐 Preview</td><td>Visualização online (link temporário)</td></tr>
+<tr><td>💬 Mensagem Dono</td><td>Envia mensagem privada pra quem abriu o ticket</td></tr>
+<tr><td>⚡ Prioridade</td><td>Muda a prioridade (baixa, média, alta, urgente)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Transcrição</h2>
+<p>Quando um ticket é fechado, o bot gera um arquivo HTML que simula a interface do Discord com todas as mensagens. Esse arquivo é:</p>
+<ul>
+  <li>Enviado no canal de log configurado</li>
+  <li>Disponível para download pelos staff</li>
+  <li>Pode ser visualizado online (preview temporário)</li>
+</ul>
+
+<h2>Feedback pós-fechamento</h2>
+<p>Após o ticket ser fechado, o membro que abriu recebe uma DM do bot pedindo avaliação de 1 a 5 estrelas. Esse feedback fica registrado e pode ser consultado pelos staff no dashboard.</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-content">
+    <div class="callout-title">Limite de tickets</div>
+    <p>Um membro só pode ter 1 ticket aberto por vez. Se tentar abrir outro, o bot avisa e manda o link do ticket existente.</p>
+  </div>
+</div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

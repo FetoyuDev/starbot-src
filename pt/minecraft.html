@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft — Starbot Docs</title>
+  <meta name="description" content="Status de servidores Minecraft em tempo real, com layout customizável.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>⛏️ Minecraft</h1>
+      <p class="subtitle">Status de servidores Minecraft em tempo real, com layout customizável.</p>
+      
+<h2>Status do servidor</h2>
+<p>O comando <code>/mcstatus</code> consulta a API <a href="https://mcsrvstat.us" target="_blank">mcsrvstat.us</a> e mostra informações em tempo real do servidor.</p>
+<div class="code-block"><pre><code>/mcstatus edicao: Java</code></pre></div>
+
+<p>Informações mostradas:</p>
+<ul>
+  <li>🟢 Status (online/offline)</li>
+  <li>🌐 Endereço IP e porta</li>
+  <li>👥 Jogadores online / máximo</li>
+  <li>📦 Versão do servidor</li>
+  <li>📊 Barra de capacidade</li>
+  <li>💬 MOTD (Message of the Day)</li>
+  <li>👤 Lista de jogadores online (até 10)</li>
+  <li>🔧 Software e plugins (se disponível)</li>
+</ul>
+
+<h2>Configurar IPs</h2>
+<p>Use <code>/configurar-mc</code> para definir os IPs do servidor Discord:</p>
+<div class="code-block"><pre><code>/configurar-mc java: play.meuserver.com bedrock: bedrock.meuserver.com</code></pre></div>
+<p>Depois disso, <code>/mcstatus</code> mostra automaticamente o status sem precisar digitar o IP toda vez.</p>
+
+<h2>Template customizável</h2>
+<p>Você pode personalizar completamente o visual da embed do <code>/mcstatus</code> com 3 comandos:</p>
+
+<h3>1. Aplicar preset pronto</h3>
+<div class="code-block"><pre><code>/mcstatus-preset preset: SevenMc
+/mcstatus-preset preset: Minimal
+/mcstatus-preset preset: Detailed</code></pre></div>
+
+<p>Presets disponíveis:</p>
+<ul>
+  <li><strong>SevenMc</strong> — banner no topo, seções Java/Bedrock, botão deep link</li>
+  <li><strong>Minimal</strong> — só IP, jogadores e status — sem firulas</li>
+  <li><strong>Detailed</strong> — tudo ligado — máximo de informação</li>
+</ul>
+
+<h3>2. Customizar via menu interativo</h3>
+<div class="code-block"><pre><code>/mcstatus-template</code></pre></div>
+<p>Abre um menu com 10 opções:</p>
+<ul>
+  <li>🎨 Cor (online/offline)</li>
+  <li>📝 Título, descrição, rodapé (com variáveis)</li>
+  <li>🖼️ Banner URL (imagem no topo)</li>
+  <li>🎮 Texto do botão deep link</li>
+  <li>👁️ Toggle de campos individuais</li>
+  <li>🔍 Preview</li>
+</ul>
+
+<h3>3. Resetar</h3>
+<div class="code-block"><pre><code>/mcstatus-reset</code></pre></div>
+
+<h2>Variáveis de template</h2>
+<p>Nos campos de texto (título, descrição, rodapé), você pode usar estas variáveis:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Variável</th><th>Exemplo</th></tr></thead>
+<tbody>
+<tr><td><code>{ip}</code></td><td>play.server.com</td></tr>
+<tr><td><code>{port}</code></td><td>25565</td></tr>
+<tr><td><code>{edition}</code></td><td>☕ Java ou 🪨 Bedrock</td></tr>
+<tr><td><code>{status}</code></td><td>🟢 Online ou 🔴 Offline</td></tr>
+<tr><td><code>{players_online}</code></td><td>42</td></tr>
+<tr><td><code>{players_max}</code></td><td>100</td></tr>
+<tr><td><code>{version}</code></td><td>1.20.4</td></tr>
+<tr><td><code>{motd}</code></td><td>Welcome to my server!</td></tr>
+<tr><td><code>{hostname}</code></td><td>server.com</td></tr>
+<tr><td><code>{timestamp}</code></td><td>21/08/2026, 14:30</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Botão Deep Link</h2>
+<p>O template pode incluir um botão "Adicionar Servidor" que usa o protocolo <code>minecraft://</code>:</p>
+<ul>
+  <li><strong>Java:</strong> <code>minecraft://ip:porta</code></li>
+  <li><strong>Bedrock:</strong> <code>minecraft://?addExternalServer=nome|ip:porta</code></li>
+</ul>
+<p>Ao clicar, o Minecraft abre e adiciona o servidor automaticamente à lista.</p>
+
+<h2>Atualização automática</h2>
+<p>No dashboard web, na aba Minecraft, você pode ativar o "auto-update" — o bot posta uma embed de status que é atualizada automaticamente a cada N minutos (configurável: 2, 5, 10, 20, 30 ou 60 min).</p>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

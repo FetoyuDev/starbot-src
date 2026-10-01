@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Música — Starbot Docs</title>
+  <meta name="description" content="Tocando música do YouTube, Spotify e SoundCloud com filtros de áudio em tempo real.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🎵 Sistema de Música</h1>
+      <p class="subtitle">Tocando música do YouTube, Spotify e SoundCloud com filtros de áudio em tempo real.</p>
+      
+<h2>Como tocar música</h2>
+<p>O comando principal é <code>/tocar</code>. Você pode passar um nome de música ou um link direto.</p>
+<div class="code-block"><pre><code>/tocar busca: Never Gonna Give You Up
+/tocar busca: https://youtu.be/dQw4w9WgXcQ
+/tocar busca: https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT</code></pre></div>
+
+<p>Se você digitar um nome (não um link), o bot mostra um menu com 5 resultados para você escolher. Se você colar um link, toca direto.</p>
+
+<h3>Escolher a fonte</h3>
+<p>Por padrão o bot detecta automaticamente a origem do link. Mas você pode forçar uma plataforma específica:</p>
+<div class="code-block"><pre><code>/tocar busca: Lo-fi hip hop fonte: YouTube
+/tocar busca: Rock playlist fonte: Spotify</code></pre></div>
+
+<h2>Painel de controle</h2>
+<p>Quando a música começa, o bot abre um painel interativo com botões:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Botão</th><th>Função</th></tr></thead>
+<tbody>
+<tr><td>⏮️ Anterior</td><td>Toca a música anterior do histórico</td></tr>
+<tr><td>⏸️/▶️ Pausar</td><td>Pausa ou retoma a reprodução</td></tr>
+<tr><td>⏭️ Pular</td><td>Pula para a próxima música da fila</td></tr>
+<tr><td>⏹️ Parar</td><td>Encerra a reprodução e limpa a fila</td></tr>
+<tr><td>🔉 Volume -</td><td>Diminui o volume em 10%</td></tr>
+<tr><td>🔊 Volume +</td><td>Aumenta o volume em 10% (máx 150%)</td></tr>
+<tr><td>📜 Fila</td><td>Mostra a fila de músicas com paginação</td></tr>
+<tr><td>🔀 Embaralhar</td><td>Mistura a ordem da fila</td></tr>
+<tr><td>🔁 Repetir</td><td>Cicla: faixa → fila → autoplay → desativado</td></tr>
+<tr><td>🔄 Atualizar</td><td>Reconstrói o painel (caso bugou)</td></tr>
+<tr><td>📝 Letra</td><td>Busca a letra da música atual</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Filtros de áudio</h2>
+<p>No menu de filtros (no painel), você pode ativar vários efeitos simultaneamente:</p>
+<ul>
+  <li><strong>Nightcore</strong> 🎶 — acelera e aumenta o tom</li>
+  <li><strong>Bass Boost</strong> 🔊 — reforça graves</li>
+  <li><strong>8D</strong> 🌀 — áudio espacial rotativo</li>
+  <li><strong>Karaokê</strong> 🎤 — remove vocais</li>
+  <li><strong>Vaporwave</strong> 🌆 — lentifica e diminui o tom</li>
+  <li><strong>Tremolo</strong> 📳 — oscilação de volume</li>
+</ul>
+
+<h2>Playlists</h2>
+<p>O comando <code>/playlist</code> permite tocar playlists completas:</p>
+<div class="code-block"><pre><code>/playlist tocar busca: https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M</code></pre></div>
+<p>Você também pode salvar suas playlists pessoais:</p>
+<div class="code-block"><pre><code>/playlist salvar nome: Minha playlist favorita
+/playlist listar
+/playlist tocar busca: Minha playlist favorita</code></pre></div>
+
+<h2>Tocar arquivo de áudio</h2>
+<p>Use <code>/tocar-arquivo</code> e anexe um arquivo <code>.mp3</code>, <code>.wav</code> ou <code>.ogg</code> na mensagem. O bot toca o arquivo no canal de voz.</p>
+
+<h2>Reabrir painel</h2>
+<p>Se o painel de controle sumir (rolagem de mensagens, editado, etc.), use <code>/controles</code> para reabri-lo sem precisar reiniciar a música.</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-content">
+    <div class="callout-title">Permissões</div>
+    <p>O bot precisa das permissões: <code>Conectar</code>, <code>Falar</code> e <code>Usar Atividade de Voz</code> no canal de voz. Sem isso, a música não toca.</p>
+  </div>
+</div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

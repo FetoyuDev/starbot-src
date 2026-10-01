@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Starbot Docs</title>
+  <meta name="description" content="Soluções para os problemas mais comuns.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>❓ Perguntas Frequentes</h1>
+      <p class="subtitle">Soluções para os problemas mais comuns.</p>
+      
+<h2>Comandos não aparecem</h2>
+<p>Se você digita <code>/</code> e os comandos do bot não aparecem:</p>
+<ol>
+  <li><strong>Você rodou <code>npm run deploy</code>?</strong> Slash commands precisam ser registrados na API do Discord. Esse passo é separado do <code>npm start</code>.</li>
+  <li><strong>O bot foi convidado com o escopo <code>applications.commands</code>?</strong> Verifique no <a href="https://discord.com/developers/applications" target="_blank">Developer Portal → OAuth2 → URL Generator</a>. Marque <code>bot</code> E <code>applications.commands</code>.</li>
+  <li><strong><code>DISCORD_CLIENT_ID</code> está correto?</strong> É o "Application ID" no Developer Portal, não o token.</li>
+  <li><strong>Espera 1 hora.</strong> Registro global pode levar até 1h para propagar. Pra teste instantâneo, preencha <code>DISCORD_GUILD_ID</code> no <code>.env</code> com o ID de um servidor específico.</li>
+</ol>
+
+<h2>Bot não conecta</h2>
+<p>Se o bot não fica online:</p>
+<ol>
+  <li>Token correto? Gere um novo em Developer Portal → Bot → Reset Token.</li>
+  <li><code>MESSAGE CONTENT INTENT</code> e <code>SERVER MEMBERS INTENT</code> ativados no Developer Portal?</li>
+  <li>MongoDB está acessível? Verifique a <code>MONGODB_URI</code> no <code>.env</code>.</li>
+  <li>Rode <code>node index.js</code> direto (não use PM2 ainda) pra ver o erro no terminal.</li>
+</ol>
+
+<h2>Música não toca</h2>
+<ol>
+  <li><strong>Você está num canal de voz?</strong> O bot só toca se você estiver conectado.</li>
+  <li><strong>O bot tem permissão no canal?</strong> Verifique <code>Conectar</code> e <code>Falar</code>.</li>
+  <li><strong>Erro "Failed to extract"?</strong> Talvez o vídeo tenha restrição de idade. Configure <code>YOUTUBE_COOKIE</code> no <code>.env</code>.</li>
+  <li><strong>Erro "Cannot find ffmpeg"?</strong> O <code>ffmpeg-static</code> está instalado? Rode <code>npm install</code> de novo.</li>
+</ol>
+
+<h2>Sessão expira no dashboard</h2>
+<p>Se você loga no dashboard e a sessão expira em segundos:</p>
+<ol>
+  <li><strong>Você está em HTTPS?</strong> Cookies <code>secure</code> só funcionam em HTTPS. Em localhost (HTTP), o cookie é descartado.</li>
+  <li>Configure <code>NODE_ENV=development</code> no <code>.env</code> durante desenvolvimento.</li>
+  <li>Confira se <code>CRYPTO_SECRET</code>, <code>PANEL_SESSION_SECRET</code> e <code>DASHBOARD_SESSION_SECRET</code> estão preenchidos.</li>
+</ol>
+
+<h2>Erro "Cannot access 'X' before initialization"</h2>
+<p>Esse é um erro de TDZ (Temporal Dead Zone) do JavaScript. Causa comum:</p>
+<ul>
+  <li>Variável <code>const</code> usada antes da declaração no mesmo escopo.</li>
+  <li><code>let</code> acessado antes do <code>await</code> que o inicializa.</li>
+</ul>
+<p>Solução: reescrevemos o callback OAuth do bot pra evitar qualquer padrão que cause TDZ. Atualize o bot pra última versão.</p>
+
+<h2>Perguntas frequentes</h2>
+<h3>O bot é gratuito?</h3>
+<p>Sim. O Starbot é gratuito para uso. Hospedagem do bot fica por conta do dono (pode rodar num VPS barato, Raspberry Pi ou PC de casa).</p>
+
+<h3>O bot armazena meus dados?</h3>
+<p>O bot armazena apenas o necessário para funcionar: IDs de usuários, saldos de starcoins, configurações por servidor, sessões do dashboard (criptografadas). Nenhum dado sensível (senhas, tokens) é exposto em texto puro.</p>
+
+<h3>Quantos servidores o bot suporta?</h3>
+<p>Não há limite de servidores. O bot foi projetado para escalar — usa MongoDB Atlas (gerenciado) e cache em memória otimizado. Já roda em 80+ servidores sem problemas.</p>
+
+<h3>Como reporto um bug?</h3>
+<p>Abra uma issue no <a href="https://github.com/Renato-dev1" target="_blank">GitHub do projeto</a> ou fale no servidor de suporte do Discord.</p>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

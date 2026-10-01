@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft — Starbot Docs</title>
+  <meta name="description" content="Real-time Minecraft server status with customizable layout.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>⛏️ Minecraft</h1>
+      <p class="subtitle">Real-time Minecraft server status with customizable layout.</p>
+      
+<h2>Server status</h2>
+<div class="code-block"><pre><code>/mcstatus edition: Java</code></pre></div>
+
+<p>Information shown:</p>
+<ul>
+  <li>🟢 Status (online/offline)</li>
+  <li>🌐 IP address and port</li>
+  <li>👥 Players online/max</li>
+  <li>📦 Server version</li>
+  <li>💬 MOTD</li>
+  <li>🔧 Software and plugins</li>
+</ul>
+
+<h2>Configure IPs</h2>
+<div class="code-block"><pre><code>/configurar-mc java: play.myserver.com bedrock: bedrock.myserver.com</code></pre></div>
+
+<h2>Customizable template</h2>
+<p>Customize the embed layout with 3 commands:</p>
+<div class="code-block"><pre><code>/mcstatus-preset preset: SevenMc
+/mcstatus-template
+/mcstatus-reset</code></pre></div>
+
+<h2>Template variables</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Variable</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>{ip}</code></td><td>play.server.com</td></tr>
+<tr><td><code>{players_online}</code></td><td>42</td></tr>
+<tr><td><code>{status}</code></td><td>🟢 Online</td></tr>
+</tbody>
+</table>
+</div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

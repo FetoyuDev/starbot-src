@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informações — Starbot Docs</title>
+  <meta name="description" content="Veja detalhes sobre usuários, servidores, canais, cargos e o próprio bot.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>📊 Comandos de Informação</h1>
+      <p class="subtitle">Veja detalhes sobre usuários, servidores, canais, cargos e o próprio bot.</p>
+      
+<h2>Informações de usuário</h2>
+<h3>/perfil</h3>
+<p>Mostra o perfil completo de um usuário, incluindo:</p>
+<ul>
+  <li>Avatar e banner personalizado</li>
+  <li>Sobre-mim (customizado via /personalizar)</li>
+  <li>Status de casamento (casado com @user ou solteiro)</li>
+  <li>Saldo de starcoins (carteira + banco)</li>
+  <li>Título de exibição (definido por admins)</li>
+  <li>Badges (conquistas especiais)</li>
+</ul>
+
+<h3>/avatar</h3>
+<p>Mostra o avatar do usuário em tamanho grande (1024x1024). Útil para salvar imagens ou ver detalhes.</p>
+
+<h3>/usuario-info</h3>
+<p>Informações técnicas: data de criação da conta, entrada no servidor, cargos, permissões.</p>
+
+<h2>Informações de servidor</h2>
+<h3>/servidor-info</h3>
+<p>Dados do servidor atual:</p>
+<ul>
+  <li>Nome e ícone</li>
+  <li>Total de membros, canais, cargos</li>
+  <li>Nível de boost (se aplicável)</li>
+  <li>Data de criação do servidor</li>
+  <li>ID do servidor</li>
+</ul>
+
+<h3>/canal-info</h3>
+<p>Informações de um canal: tipo, tópico, categoria, NSFW, slowmode, criação.</p>
+
+<h3>/cargo-info</h3>
+<p>Informações de um cargo: cor, permissões, membros com o cargo, posição na hierarquia, mentionable.</p>
+
+<h2>Informações do bot</h2>
+<h3>/bot-info</h3>
+<p>Dados do bot:</p>
+<ul>
+  <li>Ping (latência pra API do Discord)</li>
+  <li>Uptime (tempo desde o último restart)</li>
+  <li>Uso de memória</li>
+  <li>Total de servidores onde está</li>
+  <li>Total de usuários alcançados</li>
+</ul>
+
+<h2>Outros comandos</h2>
+<h3>/relogio</h3>
+<p>Mostra a hora atual em vários fusos horários.</p>
+
+<h3>/dizer</h3>
+<p>Faz o bot repetir uma mensagem. Útil para anúncios.</p>
+<div class="callout callout-warning">
+  <span class="callout-icon">⚠️</span>
+  <div class="callout-content">
+    <div class="callout-title">Permissão</div>
+    <p>Apenas administradores podem usar <code>/dizer</code> para evitar abuso (spam, phishing).</p>
+  </div>
+</div>
+
+<h3>/sugestao</h3>
+<p>Envia uma sugestão para o canal de sugestões configurado pelo admin.</p>
+
+<h3>/enquete</h3>
+<p>Cria uma enquete com até 5 opções. O bot adiciona reações automaticamente e conta os votos.</p>
+
+<h3>/personalizar</h3>
+<p>Personaliza seu perfil: cor das suas embeds, sobre-mim, banner.</p>
+<div class="code-block"><pre><code>/personalizar cor: #FF5733
+/personalizar sobre: Olá! Sou dev e amo café.
+/personalizar banner: https://exemplo.com/banner.png</code></pre></div>
+
+<h3>/ajuda</h3>
+<p>Lista interativa com todos os comandos, filtráveis por categoria.</p>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

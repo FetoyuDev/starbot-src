@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comandos — Starbot Docs</title>
+  <meta name="description" content="Todos os 73 comandos slash disponíveis no Starbot, organizados por categoria.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>📋 Lista de Comandos</h1>
+      <p class="subtitle">Todos os 73 comandos slash disponíveis no Starbot, organizados por categoria.</p>
+      
+<p>O Starbot usa slash commands (comandos com <code>/</code>). Digite <code>/</code> no seu servidor para ver a lista completa com autocomplete. Abaixo está a documentação de cada comando, dividida por categoria.</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-content">
+    <div class="callout-title">Como usar</div>
+    <p>Digite <code>/nome-do-comando</code> no Discord. Argumentos obrigatórios são marcados com <code>*</code>, opcionais entre colchetes <code>[ ]</code>. Exemplos:</p>
+    <div class="code-block"><pre><code>/tocar busca: Never Gonna Give You Up
+/banir usuario: @João motivo: spam
+/saldo usuario: @Maria</code></pre></div>
+  </div>
+</div>
+
+<h2 id="economia">💰 Economia</h2>
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/saldo</span>
+    <span class="command-category">Economia</span>
+  </div>
+  <div class="command-description">Mostra o saldo de starcoins de um usuário (carteira + banco).</div>
+  <div class="command-args">
+    <div class="command-args-title">Argumentos</div>
+    <div class="command-arg">
+      <span class="command-arg-name">usuario</span>
+      <span class="command-arg-type">USUÁRIO opcional</span>
+      <span class="command-arg-desc">Ver saldo de outro usuário. Se omitido, mostra o seu.</span>
+    </div>
+  </div>
+  <div class="command-example">/saldo usuario: @Maria</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/trabalhar</span>
+    <span class="command-category">Economia</span>
+  </div>
+  <div class="command-description">Trabalha para ganhar starcoins. Tem cooldown de ~30 minutos.</div>
+  <div class="command-example">/trabalhar</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/pagar</span>
+    <span class="command-category">Economia</span>
+  </div>
+  <div class="command-description">Transfere starcoins da sua carteira para outro usuário.</div>
+  <div class="command-args">
+    <div class="command-args-title">Argumentos</div>
+    <div class="command-arg">
+      <span class="command-arg-name">usuario *</span>
+      <span class="command-arg-type">USUÁRIO</span>
+      <span class="command-arg-desc">Quem vai receber as starcoins.</span>
+    </div>
+    <div class="command-arg">
+      <span class="command-arg-name">valor *</span>
+      <span class="command-arg-type">NÚMERO</span>
+      <span class="command-arg-desc">Quantidade de starcoins.</span>
+    </div>
+  </div>
+  <div class="command-example">/pagar usuario: @João valor: 100</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/depositar</span>
+    <span class="command-category">Economia</span>
+  </div>
+  <div class="command-description">Deposita starcoins da carteira para o banco (mais seguro).</div>
+  <div class="command-args">
+    <div class="command-args-title">Argumentos</div>
+    <div class="command-arg">
+      <span class="command-arg-name">valor *</span>
+      <span class="command-arg-type">NÚMERO</span>
+      <span class="command-arg-desc">Quantidade a depositar.</span>
+    </div>
+  </div>
+  <div class="command-example">/depositar valor: 500</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/sacar</span>
+    <span class="command-category">Economia</span>
+  </div>
+  <div class="command-description">Saca starcoins do banco de volta para a carteira.</div>
+  <div class="command-example">/sacar valor: 200</div>
+</div>
+
+<h2 id="moderacao">🔨 Moderação</h2>
+<p>Comandos de moderação exigem permissões específicas do Discord. Admins (permissão <code>Gerenciar Servidor</code>) podem usar todos.</p>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/banir</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Bane um membro do servidor. Remove mensagens recentes opcionalmente.</div>
+  <div class="command-args">
+    <div class="command-args-title">Argumentos</div>
+    <div class="command-arg"><span class="command-arg-name">usuario *</span><span class="command-arg-type">USUÁRIO</span><span class="command-arg-desc">Membro a ser banido.</span></div>
+    <div class="command-arg"><span class="command-arg-name">motivo</span><span class="command-arg-type">TEXTO</span><span class="command-arg-desc">Motivo do banimento (registrado no log).</span></div>
+    <div class="command-arg"><span class="command-arg-name">dias</span><span class="command-arg-type">NÚMERO</span><span class="command-arg-desc">Dias de mensagens para apagar (0-7).</span></div>
+  </div>
+  <div class="command-example">/banir usuario: @Spammer motivo: Spam de links dias: 1</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/expulsar</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Expulsa um membro (ele pode voltar com convite).</div>
+  <div class="command-example">/expulsar usuario: @João motivo: Comportamento tóxico</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/castigar</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Aplica timeout (muta temporariamente o membro).</div>
+  <div class="command-args">
+    <div class="command-args-title">Argumentos</div>
+    <div class="command-arg"><span class="command-arg-name">usuario *</span><span class="command-arg-type">USUÁRIO</span><span class="command-arg-desc">Membro a ser mutado.</span></div>
+    <div class="command-arg"><span class="command-arg-name">duracao *</span><span class="command-arg-type">TEXTO</span><span class="command-arg-desc">Duração: 10s, 5m, 2h, 1d, etc.</span></div>
+    <div class="command-arg"><span class="command-arg-name">motivo</span><span class="command-arg-type">TEXTO</span><span class="command-arg-desc">Motivo.</span></div>
+  </div>
+  <div class="command-example">/castigar usuario: @Falador duracao: 10m motivo: Flood</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/avisar</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Registra um aviso (warn) no perfil do membro. Sistema automático de punições disponível.</div>
+  <div class="command-example">/avisar usuario: @Maria motivo: Linguagem inadequada</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/avisos</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Lista todos os avisos de um usuário.</div>
+  <div class="command-example">/avisos usuario: @Maria</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/limpar</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Apaga múltiplas mensagens de uma vez (1-100).</div>
+  <div class="command-example">/limpar quantidade: 50 usuario: @Spammer</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/cargo</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Adiciona ou remove um cargo de um membro.</div>
+  <div class="command-example">/cargo acao: adicionar usuario: @João cargo: @Membro VIP</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/criar-cargo</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Cria um novo cargo no servidor com cor customizada.</div>
+  <div class="command-example">/criar-cargo nome: Membro VIP cor: #FFAA00</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/cor-cargo</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Altera a cor de um cargo existente.</div>
+  <div class="command-example">/cor-cargo cargo: @Membro VIP cor: #5865f2</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/criar-thread</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Cria uma thread num canal.</div>
+  <div class="command-example">/criar-thread nome: Discussão do evento</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/slowmode</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Define o slow mode do canal atual.</div>
+  <div class="command-example">/slowmode segundos: 30</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/logs</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Configura canais de log (mensagens deletadas, entradas/saídas, banimentos).</div>
+  <div class="command-example">/logs tipo: mensagem-deletada canal: #mod-logs</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/desmutar-massa</span>
+    <span class="command-category">Moderação</span>
+  </div>
+  <div class="command-description">Remove o timeout de todos os membros mutados de uma vez.</div>
+  <div class="command-example">/desmutar-massa</div>
+</div>
+
+<h2 id="musica">🎵 Música</h2>
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/tocar</span>
+    <span class="command-category">Música</span>
+  </div>
+  <div class="command-description">Toca uma música ou playlist do YouTube, Spotify ou SoundCloud. Abre o painel de controle com botões.</div>
+  <div class="command-args">
+    <div class="command-args-title">Argumentos</div>
+    <div class="command-arg"><span class="command-arg-name">busca *</span><span class="command-arg-type">TEXTO</span><span class="command-arg-desc">Nome da música ou link direto.</span></div>
+    <div class="command-arg"><span class="command-arg-name">fonte</span><span class="command-arg-type">ESCOLHA</span><span class="command-arg-desc">Forçar origem: YouTube, Spotify, SoundCloud, ou Automático.</span></div>
+  </div>
+  <div class="command-example">/tocar busca: Never Gonna Give You Up fonte: YouTube</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/playlist</span>
+    <span class="command-category">Música</span>
+  </div>
+  <div class="command-description">Toca uma playlist completa ou gerencia suas playlists pessoais salvas.</div>
+  <div class="command-args">
+    <div class="command-args-title">Subcomandos</div>
+    <div class="command-arg"><span class="command-arg-name">tocar</span><span class="command-arg-type">TEXTO</span><span class="command-arg-desc">Toca playlist por link (qualquer plataforma) ou busca por nome.</span></div>
+    <div class="command-arg"><span class="command-arg-name">salvar</span><span class="command-arg-type">TEXTO</span><span class="command-arg-desc">Salva a fila atual como playlist pessoal.</span></div>
+    <div class="command-arg"><span class="command-arg-name">listar</span><span class="command-arg-type">—</span><span class="command-arg-desc">Lista suas playlists salvas.</span></div>
+    <div class="command-arg"><span class="command-arg-name">deletar</span><span class="command-arg-type">TEXTO</span><span class="command-arg-desc">Deleta uma playlist salva.</span></div>
+  </div>
+  <div class="command-example">/playlist tocar busca: https://open.spotify.com/playlist/...</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/tocar-arquivo</span>
+    <span class="command-category">Música</span>
+  </div>
+  <div class="command-description">Toca um arquivo de áudio que você anexa à mensagem.</div>
+  <div class="command-example">/tocar-arquivo (anexe um .mp3, .wav, .ogg)</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/controles</span>
+    <span class="command-category">Música</span>
+  </div>
+  <div class="command-description">Reabre o painel de controle de música se ele sumiu do chat.</div>
+  <div class="command-example">/controles</div>
+</div>
+
+<h2 id="tickets">🎫 Tickets</h2>
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/configurar-tickets</span>
+    <span class="command-category">Tickets</span>
+  </div>
+  <div class="command-description">Configura o sistema de tickets: categoria, cargo de suporte, canal de log.</div>
+  <div class="command-example">/configurar-tickets categoria: #Suporte cargo: @Suporte log: #ticket-logs</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/painel-tickets</span>
+    <span class="command-category">Tickets</span>
+  </div>
+  <div class="command-description">Posta o painel de abertura de tickets no canal atual. Membros clicam para abrir ticket.</div>
+  <div class="command-example">/painel-tickets</div>
+</div>
+
+<h2 id="minecraft">⛏️ Minecraft</h2>
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/mcstatus</span>
+    <span class="command-category">Minecraft</span>
+  </div>
+  <div class="command-description">Mostra o status de um servidor Minecraft (Java ou Bedrock) em tempo real.</div>
+  <div class="command-args">
+    <div class="command-args-title">Argumentos</div>
+    <div class="command-arg"><span class="command-arg-name">edicao</span><span class="command-arg-type">ESCOLHA</span><span class="command-arg-desc">Java ou Bedrock. Default: Java.</span></div>
+  </div>
+  <div class="command-example">/mcstatus edicao: Java</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/configurar-mc</span>
+    <span class="command-category">Minecraft</span>
+  </div>
+  <div class="command-description">Define os IPs dos servidores Minecraft do servidor Discord.</div>
+  <div class="command-example">/configurar-mc java: play.meuserver.com bedrock: bedrock.meuserver.com</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/mcstatus-template</span>
+    <span class="command-category">Minecraft</span>
+  </div>
+  <div class="command-description">Configura o layout visual da embed do /mcstatus. Abre um menu interativo.</div>
+  <div class="command-example">/mcstatus-template</div>
+</div>
+
+<h2 id="informacoes">📊 Informações</h2>
+<p>Comandos que mostram informações sobre usuários, servidores, canais, cargos e o próprio bot.</p>
+<ul>
+  <li><code>/perfil</code> — perfil completo do usuário (badges, título, status de casamento)</li>
+  <li><code>/avatar</code> — avatar do usuário em tamanho grande</li>
+  <li><code>/servidor-info</code> — informações do servidor (membros, canais, boost, criação)</li>
+  <li><code>/canal-info</code> — informações de um canal</li>
+  <li><code>/usuario-info</code> — informações detalhadas de um usuário (conta, entrada no server)</li>
+  <li><code>/cargo-info</code> — informações de um cargo</li>
+  <li><code>/bot-info</code> — informações do bot (servidores, ping, uptime)</li>
+  <li><code>/relogio</code> — hora atual em vários fusos</li>
+  <li><code>/dizer</code> — faz o bot repetir uma mensagem</li>
+  <li><code>/sugestao</code> — envia uma sugestão para o canal configurado</li>
+  <li><code>/enquete</code> — cria uma enquete com reações automáticas</li>
+  <li><code>/personalizar</code> — personaliza seu perfil (cor, sobre-mim, banner)</li>
+  <li><code>/emoji</code> — informações sobre um emoji do servidor</li>
+  <li><code>/adicionar-figurinha</code> — adiciona uma figurinha ao servidor</li>
+  <li><code>/ajuda</code> — lista interativa de comandos</li>
+</ul>
+
+<h2 id="diversao">🎮 Diversão</h2>
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/casar</span>
+    <span class="command-category">Diversão</span>
+  </div>
+  <div class="command-description">Pede alguém em casamento. Custa starcoins. O outro precisa aceitar.</div>
+  <div class="command-example">/casar usuario: @Maria</div>
+</div>
+
+<div class="command-card">
+  <div class="command-header">
+    <span class="command-name">/divorciar</span>
+    <span class="command-category">Diversão</span>
+  </div>
+  <div class="command-description">Divorcia do seu cônjuge atual.</div>
+  <div class="command-example">/divorciar</div>
+</div>
+
+<p>Outros comandos de diversão:</p>
+<ul>
+  <li><code>/dado</code> — rola um dado (1-6 ou custom)</li>
+  <li><code>/ppt</code> — pedra-papel-tesoura contra o bot</li>
+  <li><code>/shippar</code> — calcula compatibilidade entre dois usuários</li>
+  <li><code>/vocesabia</code> — fato aleatório "você sabia?"</li>
+  <li><code>/meme</code> — meme aleatório do Reddit</li>
+  <li><code>/gato</code> — foto aleatória de gato</li>
+</ul>
+
+<h2 id="utilidades">🛠️ Utilidades</h2>
+<ul>
+  <li><code>/calcular</code> — calculadora (somar, subtrair, multiplicar, dividir)</li>
+  <li><code>/traduzir</code> — traduz texto para qualquer idioma</li>
+  <li><code>/clima</code> — previsão do tempo de qualquer cidade</li>
+</ul>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursos Admin — Starbot Admin Docs</title>
+  <meta name="description" content="Embed builder visual, sistema de tickets avançado, boas-vindas com variáveis.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🛠️ Recursos Administrativos</h1>
+      <p class="subtitle">Embed builder visual, sistema de tickets avançado, boas-vindas com variáveis.</p>
+      
+<div class="callout callout-warning">
+  <span class="callout-icon">🔒</span>
+  <div class="callout-content">
+    <div class="callout-title">Área restrita</div>
+    <p>Esta página é para administradores de servidores. Usuários comuns devem consultar a <a href="/pt/index.html">documentação pública</a>.</p>
+  </div>
+</div>
+
+<h2>Embed Builder Visual</h2>
+<p>O painel do dono do bot (<code>/panel</code>) inclui um construtor visual de embeds. Você monta uma embed com preview em tempo real e envia pra qualquer canal do bot.</p>
+
+<h4>Recursos</h4>
+<ul>
+  <li>Preview em tempo real enquanto você edita</li>
+  <li>Todos os campos suportados (title, description, color, fields, footer, thumbnail, image, timestamp)</li>
+  <li>Salva embeds como JSON pra reusar depois</li>
+  <li>Envio direto pra canal do Discord</li>
+</ul>
+
+<h4>Como acessar</h4>
+<ol>
+  <li>Acesse <code>http://localhost:8080/panel</code> (ou seu domínio público)</li>
+  <li>Faça login com usuário/senha do dono</li>
+  <li>Vá em <strong>Broadcast</strong> → <strong>Embed Builder</strong></li>
+</ol>
+
+<h2>Sistema de Tickets Avançado</h2>
+<p>O sistema de tickets do Starbot vai muito além do básico. Recursos avançados:</p>
+
+<h3>Categorias customizadas</h3>
+<p>Defina suas próprias categorias de ticket (Suporte Geral, Bug, Sugestão, Denúncia, etc.) com cores e emojis próprios.</p>
+<div class="code-block"><pre><code>PATCH /dashboard/api/guilds/{guildId}
+{
+  "tickets": {
+    "categories": [
+      { "value": "suporte_geral", "label": "Suporte Geral", "style": "Primary", "emoji": "🎫" },
+      { "value": "bug", "label": "Reportar Bug", "style": "Danger", "emoji": "🐛" }
+    ]
+  }
+}</code></pre></div>
+
+<h3>Modal de detalhes</h3>
+<p>Quando o usuário clica pra abrir ticket, um modal pergunta o problema antes de criar o canal. Configurável:</p>
+<div class="code-block"><pre><code>PATCH /dashboard/api/guilds/{guildId}
+{
+  "tickets": {
+    "modalEnabled": true,
+    "modalQuestion": "Descreva seu problema em detalhes:"
+  }
+}</code></pre></div>
+
+<h3>Transcrição automática</h3>
+<p>Quando o ticket é fechado, o bot gera um HTML com toda a conversa (simulando a interface do Discord) e envia no canal de log configurado.</p>
+<div class="code-block"><pre><code>PATCH /dashboard/api/guilds/{guildId}
+{
+  "tickets": {
+    "transcriptionEnabled": true
+  }
+}</code></pre></div>
+
+<h3>Feedback pós-fechamento</h3>
+<p>Após fechar o ticket, o membro recebe uma DM pedindo avaliação de 1-5 estrelas. O feedback fica registrado para análise dos admins no painel.</p>
+
+<h2>Painéis de Controle</h2>
+<p>O Starbot tem DOIS painéis web diferentes:</p>
+
+<h3>1. Painel do Dono (<code>/panel</code>)</h3>
+<p>Login com usuário/senha (hash bcrypt). Acesso total a:</p>
+<ul>
+  <li>Todos os servidores onde o bot está</li>
+  <li>Todos os usuários (busca, edição de saldo, blacklist)</li>
+  <li>Todos os tickets abertos em qualquer servidor</li>
+  <li>Avisos (warnings) de qualquer servidor</li>
+  <li>Broadcast de mensagens pra qualquer canal</li>
+  <li>Comandos de controle do bot (reload, restart)</li>
+  <li>Analytics de uso de comandos</li>
+  <li>Leaderboard global de starcoins</li>
+</ul>
+
+<div class="callout callout-danger">
+  <span class="callout-icon">⚠️</span>
+  <div class="callout-content">
+    <div class="callout-title">Acesso crítico</div>
+    <p>O painel do dono tem acesso TOTAL ao bot. Não compartilhe a senha. Use Cloudflare Access na frente (camada extra) se for expor publicamente.</p>
+  </div>
+</div>
+
+<h3>2. Dashboard de Servidores (<code>/dashboard</code>)</h3>
+<p>Login via OAuth2 do Discord. Cada admin de servidor só vê e configura o SEU servidor:</p>
+<ul>
+  <li>Apenas servidores onde você tem permissão <code>Gerenciar Servidor</code></li>
+  <li>Apenas servidores onde o bot está presente</li>
+  <li>Permissão revalidada server-side a cada request</li>
+  <li>Sessão OAuth2 com PKCE + CSRF state</li>
+  <li>Single-session: se logar em outro lugar, sessão antiga expira</li>
+</ul>
+
+<h2>Variáveis de Boas-vindas</h2>
+<p>Além das variáveis básicas, você pode usar variáveis compostas:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Variável</th><th>Resultado</th></tr></thead>
+<tbody>
+<tr><td><code>{membro}</code></td><td>@João (menção)</td></tr>
+<tr><td><code>{username}</code></td><td>João (sem @)</td></tr>
+<tr><td><code>{servidor}</code></td><td>Meu Servidor</td></tr>
+<tr><td><code>{total}</code></td><td>1542</td></tr>
+</tbody>
+</table>
+</div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

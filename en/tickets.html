@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tickets — Starbot Docs</title>
+  <meta name="description" content="Private support channels between members and staff, with automatic transcription.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🎫 Ticket System</h1>
+      <p class="subtitle">Private support channels between members and staff, with automatic transcription.</p>
+      
+<h2>What it is</h2>
+<p>Tickets are temporary private channels created on demand. A member clicks a button and the bot creates a channel just for them + staff.</p>
+
+<h2>Setup</h2>
+<div class="code-block"><pre><code>/configurar-tickets category: #Support role: @Staff log: #ticket-logs
+/painel-tickets</code></pre></div>
+
+<h2>Flow</h2>
+<ol>
+  <li>Member clicks "Open Ticket"</li>
+  <li>Bot creates #ticket-username channel</li>
+  <li>Bot sends welcome embed + mentions staff</li>
+  <li>Member describes the problem</li>
+  <li>Staff clicks "Claim"</li>
+  <li>When resolved, staff clicks "Close"</li>
+  <li>Bot generates HTML transcript, logs it, deletes channel in 5s</li>
+</ol>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

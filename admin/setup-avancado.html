@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Avançado — Starbot Admin Docs</title>
+  <meta name="description" content="Configurações avançadas para administradores: auto-mod, filtros de log granulares, warns automático.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>⚙️ Setup Avançado</h1>
+      <p class="subtitle">Configurações avançadas para administradores: auto-mod, filtros de log granulares, warns automático.</p>
+      
+<div class="callout callout-warning">
+  <span class="callout-icon">🔒</span>
+  <div class="callout-content">
+    <div class="callout-title">Área restrita</div>
+    <p>Esta página é para administradores de servidores onde o Starbot está presente. Se você é um usuário comum, a <a href="/pt/index.html">documentação pública</a> é o que você precisa.</p>
+  </div>
+</div>
+
+<h2>Auto-Moderação Avançada</h2>
+<h3>Palavras banidas (badwords)</h3>
+<p>O Starbot pode automaticamente deletar mensagens que contenham palavras proibidas que você definir. Funciona em qualquer canal (exceto os que você ignorar).</p>
+
+<h4>Configurar via dashboard</h4>
+<ol>
+  <li>Acesse o dashboard web do bot</li>
+  <li>Selecione o servidor</li>
+  <li>Vá na aba <strong>🛡️ Auto-Mod</strong></li>
+  <li>Digite as palavras banidas (uma por linha) no textarea</li>
+  <li>Clique em <strong>Salvar Auto-Mod</strong></li>
+</ol>
+
+<h4>Configurar via API</h4>
+<div class="code-block"><pre><code>PATCH /dashboard/api/guilds/{guildId}
+Content-Type: application/json
+
+{
+  "automod": {
+    "badWords": ["palavra1", "palavra2", "insulto"]
+  }
+}</code></pre></div>
+
+<h4>Comportamento</h4>
+<ul>
+  <li>Mensagem contendo palavra banida é <strong>deletada imediatamente</strong></li>
+  <li>Bot envia aviso no canal (auto-deleta em 3s)</li>
+  <li>Comparação é <strong>case-insensitive</strong> (não diferencia maiúsculas)</li>
+  <li>Match parcial: "censurado" dentro de "censurado123" é capturado</li>
+  <li>Limpeza automática: trim, lowercase, dedup, máx 200 palavras de 50 chars</li>
+</ul>
+
+<h3>Ignorar canais e cargos</h3>
+<p>Você pode configurar canais e cargos que são imunes à auto-moderação (útil para canais de staff ou cargos VIP):</p>
+<div class="code-block"><pre><code>PATCH /dashboard/api/guilds/{guildId}
+{
+  "automod": {
+    "ignoredChannels": ["1234567890", "0987654321"],
+    "ignoredRoles": ["1111111111"]
+  }
+}</code></pre></div>
+
+<h3>Anti-link</h3>
+<p>Ative para bloquear automaticamente qualquer mensagem que contenha URLs (http/https):</p>
+<div class="code-block"><pre><code>PATCH /dashboard/api/guilds/{guildId}
+{
+  "automod": {
+    "antiLink": true
+  }
+}</code></pre></div>
+
+<h2>Filtros de Log Granulares</h2>
+<p>O Starbot permite ativar/desativar individualmente cada tipo de evento que vai pro canal de log. Isso evita spam em canais de log quando você só quer registrar certos eventos.</p>
+
+<h4>Eventos disponíveis</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Evento</th><th>Descrição</th><th>Default</th></tr></thead>
+<tbody>
+<tr><td><code>messageDelete</code></td><td>Quando uma mensagem é deletada</td><td>✅ Ativado</td></tr>
+<tr><td><code>messageUpdate</code></td><td>Quando uma mensagem é editada</td><td>✅ Ativado</td></tr>
+<tr><td><code>memberUpdate</code></td><td>Quando um membro recebe/perde cargo ou muda apelido</td><td>❌ Desativado</td></tr>
+<tr><td><code>memberJoinLeave</code></td><td>Quando um membro entra ou sai do servidor</td><td>✅ Ativado</td></tr>
+<tr><td><code>ban</code></td><td>Quando um membro é banido</td><td>✅ Ativado</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>Configurar via dashboard</h4>
+<ol>
+  <li>Aba <strong>🛡️ Auto-Mod</strong> → seção <strong>📜 Filtros de Log</strong></li>
+  <li>Marque/desmarque os checkboxes</li>
+  <li>Clique em <strong>Salvar Filtros</strong></li>
+</ol>
+
+<h4>Configurar via API</h4>
+<div class="code-block"><pre><code>PATCH /dashboard/api/guilds/{guildId}
+{
+  "logs": {
+    "messageDelete": true,
+    "messageUpdate": false,
+    "memberUpdate": false,
+    "memberJoinLeave": true,
+    "ban": true
+  }
+}</code></pre></div>
+
+<h2>Sistema de Warns Automático</h2>
+<p>Configure limites de warns que disparam punições automáticas. Quando um membro atinge o limite, o bot age sem intervenção manual.</p>
+
+<h4>Configurar via comando</h4>
+<div class="code-block"><pre><code>/configurar-warns
+  ativar: true
+  mute_limite: 3
+  mute_duracao: 60
+  ban_limite: 5</code></pre></div>
+
+<p>Exemplo: 3 warns → mute de 60min, 5 warns → banimento automático.</p>
+
+<h4>Punições suportadas</h4>
+<ul>
+  <li><strong>Mute (timeout):</strong> silencia o membro por X minutos</li>
+  <li><strong>Ban:</strong> remove permanentemente do servidor</li>
+</ul>
+
+<h2>Recovery Roles (Recuperação de Cargos)</h2>
+<p>Quando um membro sai do servidor e volta depois, o Starbot restaura automaticamente os cargos que ele tinha. Isso é automático — não precisa configurar.</p>
+
+<h4>Como funciona</h4>
+<ol>
+  <li>Membro sai do servidor</li>
+  <li>Bot salva snapshot dos cargos (exceto @everyone e cargos gerenciados por integração)</li>
+  <li>Membro volta (pode ser dias, semanas, meses depois)</li>
+  <li>Bot detecta a entrada e restaura os cargos salvos</li>
+</ol>
+
+<div class="callout callout-info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-content">
+    <div class="callout-title">Boas-vindas + recovery</div>
+    <p>Se você configurou boas-vindas com cargo automático, o bot não duplica cargos — só aplica o cargo automático se o membro NÃO tinha cargos recuperáveis.</p>
+  </div>
+</div>
+
+<h2>Boas-vindas com variáveis</h2>
+<p>O sistema de boas-vindas suporta variáveis que são substituídas automaticamente:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Variável</th><th>Substituída por</th></tr></thead>
+<tbody>
+<tr><td><code>{membro}</code> ou <code>{user}</code></td><td>Menção ao usuário (@João)</td></tr>
+<tr><td><code>{servidor}</code> ou <code>{server}</code></td><td>Nome do servidor</td></tr>
+<tr><td><code>{total}</code></td><td>Total de membros do servidor</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>Configurar</h4>
+<div class="code-block"><pre><code>/configurar-boas-vindas
+  canal: #boas-vindas
+  mensagem: Bem-vindo {membro} ao {servidor}! Você é o membro #{total}.
+  cargo: @Membro</code></pre></div>
+
+<h2>Multi-idioma por servidor</h2>
+<p>Cada servidor pode definir seu idioma padrão. Usuários podem ainda assim definir seu próprio idioma (sobrepõe o do servidor para eles):</p>
+<div class="code-block"><pre><code>/idioma idioma: pt-BR  # ou en-US ou es-ES</code></pre></div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

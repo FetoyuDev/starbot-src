@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API REST — Starbot Admin Docs</title>
+  <meta name="description" content="Endpoints disponíveis para integração com sistemas externos.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <template id="page-content">
+      <h1>🔌 API REST do Starbot</h1>
+      <p class="subtitle">Endpoints disponíveis para integração com sistemas externos.</p>
+      
+<div class="callout callout-warning">
+  <span class="callout-icon">🔒</span>
+  <div class="callout-content">
+    <div class="callout-title">Área restrita</div>
+    <p>Esta página é para administradores. Usuários comuns devem consultar a <a href="/pt/index.html">documentação pública</a>.</p>
+  </div>
+</div>
+
+<h2>Visão geral</h2>
+<p>O Starbot expõe uma API REST no mesmo servidor onde o bot roda. A base URL é <code>http://seu-dominio:8080</code> (ou <code>https://seu-dominio</code> se estiver atrás de Cloudflare Tunnel).</p>
+
+<p>Todas as rotas autenticadas exigem cookie de sessão OAuth2 válido. Não há API token público por enquanto — apenas admins de servidor autenticados via Discord podem acessar endpoints de configuração.</p>
+
+<h2>Rotas públicas</h2>
+<h3>GET /dashboard/api/auth/check</h3>
+<p>Verifica se a sessão atual está autenticada.</p>
+<div class="code-block"><pre><code>GET /dashboard/api/auth/check
+
+# Resposta (autenticado):
+{ "authenticated": true, "user": { "id": "123", "username": "Renato" } }
+
+# Resposta (não autenticado):
+{ "authenticated": false, "user": null }</code></pre></div>
+
+<h2>Rotas autenticadas</h2>
+<p>Todas exigem cookie de sessão <code>sb_dash</code> válido.</p>
+
+<h3>GET /dashboard/api/me</h3>
+<p>Retorna informações do usuário logado.</p>
+<div class="code-block"><pre><code>{
+  "id": "1234567890",
+  "username": "Renato",
+  "avatarUrl": "https://cdn.discordapp.com/avatars/..."
+}</code></pre></div>
+
+<h3>GET /dashboard/api/me/language</h3>
+<p>Retorna o idioma preferido do usuário.</p>
+<div class="code-block"><pre><code>{
+  "language": "pt-BR",
+  "supported": ["pt-BR", "en-US", "es-ES"]
+}</code></pre></div>
+
+<h3>PATCH /dashboard/api/me/language</h3>
+<p>Altera o idioma preferido do usuário.</p>
+<div class="code-block"><pre><code>PATCH /dashboard/api/me/language
+Content-Type: application/json
+
+{ "language": "en-US" }
+
+# Resposta:
+{ "success": true, "language": "en-US" }</code></pre></div>
+
+<h3>GET /dashboard/api/guilds</h3>
+<p>Lista os servidores onde o usuário é admin E o bot está presente.</p>
+<div class="code-block"><pre><code>[
+  {
+    "id": "1111111111",
+    "name": "Meu Servidor",
+    "icon": "https://cdn.discordapp.com/icons/...",
+    "owner": true,
+    "members": 542
+  }
+]</code></pre></div>
+
+<h3>GET /dashboard/api/guilds/:id</h3>
+<p>Detalhes de um servidor específico (canais, categorias, cargos, configurações atuais).</p>
+<div class="code-block"><pre><code>{
+  "config": { /* Guild config completa */ },
+  "channels": [{ "id": "...", "name": "geral" }],
+  "categories": [{ "id": "...", "name": "Suporte" }],
+  "roles": [{ "id": "...", "name": "@Staff" }]
+}</code></pre></div>
+
+<h3>PATCH /dashboard/api/guilds/:id</h3>
+<p>Atualiza configurações do servidor. Campos aceitos no body:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Campo</th><th>Tipo</th><th>Descrição</th></tr></thead>
+<tbody>
+<tr><td><code>messageDeleteLogChannel</code></td><td>string</td><td>Canal de log de mensagens deletadas</td></tr>
+<tr><td><code>joinLeaveLogChannel</code></td><td>string</td><td>Canal de log de entrada/saída</td></tr>
+<tr><td><code>banLogChannel</code></td><td>string</td><td>Canal de log de banimentos</td></tr>
+<tr><td><code>minecraft.javaIp</code></td><td>string</td><td>IP do servidor Minecraft Java</td></tr>
+<tr><td><code>minecraft.bedrockIp</code></td><td>string</td><td>IP do servidor Minecraft Bedrock</td></tr>
+<tr><td><code>tickets.categoryId</code></td><td>string</td><td>Categoria para canais de ticket</td></tr>
+<tr><td><code>tickets.supportRoleId</code></td><td>string</td><td>Cargo de staff que responde tickets</td></tr>
+<tr><td><code>welcome.enabled</code></td><td>boolean</td><td>Ativa/desativa boas-vindas</td></tr>
+<tr><td><code>welcome.message</code></td><td>string</td><td>Mensagem de boas-vindas com variáveis</td></tr>
+<tr><td><code>automod.badWords</code></td><td>string[]</td><td>Lista de palavras banidas</td></tr>
+<tr><td><code>automod.antiLink</code></td><td>boolean</td><td>Bloqueia links automaticamente</td></tr>
+<tr><td><code>logs.messageDelete</code></td><td>boolean</td><td>Log de mensagens deletadas</td></tr>
+<tr><td><code>logs.ban</code></td><td>boolean</td><td>Log de banimentos</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>POST /dashboard/api/guild/select</h3>
+<p>Seleciona o servidor ativo na sessão (usado pelo dashboard pra saber qual servidor o user está editando).</p>
+<div class="code-block"><pre><code>POST /dashboard/api/guild/select
+Content-Type: application/json
+
+{ "guildId": "1111111111" }</code></pre></div>
+
+<h3>GET /dashboard/api/guilds/:id/stats</h3>
+<p>Estatísticas de um servidor específico.</p>
+<div class="code-block"><pre><code>{
+  "memberCount": 542,
+  "ticketCount": 12,
+  "warningCount": 8,
+  "channelCount": 23,
+  "roleCount": 15,
+  "createdAt": "2024-01-15T10:30:00.000Z"
+}</code></pre></div>
+
+<h3>GET /dashboard/api/stats</h3>
+<p>Estatísticas globais do bot (todos os servidores).</p>
+<div class="code-block"><pre><code>{
+  "guildCount": 81,
+  "totalMembers": 15423,
+  "uptime": 3600,
+  "memoryUsage": { "rss": 123456789 }
+}</code></pre></div>
+
+<h3>GET /dashboard/api/minecraft/status</h3>
+<p>Consulta status de um servidor Minecraft (público, não precisa de auth).</p>
+<div class="code-block"><pre><code>GET /dashboard/api/minecraft/status?ip=play.example.com&edition=java
+
+{
+  "online": true,
+  "ip": "play.example.com",
+  "port": 25565,
+  "players": { "online": 42, "max": 100 },
+  "version": "1.20.4",
+  "motd": { "clean": "Welcome!" }
+}</code></pre></div>
+
+<h2>Rate limiting</h2>
+<p>Rotas de login têm rate limit:</p>
+<ul>
+  <li><code>POST /panel/api/login</code> — 10 tentativas por IP+username a cada 15 min</li>
+  <li><code>GET /dashboard/callback</code> — 10 tentativas por IP a cada 15 min</li>
+</ul>
+<p>Ao atingir o limite, recebe HTTP 429 com header <code>Retry-After</code>.</p>
+
+<h2>Códigos de erro</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Código</th><th>Significado</th></tr></thead>
+<tbody>
+<tr><td>400</td><td>Parâmetros inválidos no body/query</td></tr>
+<tr><td>401</td><td>Não autenticado (cookie de sessão ausente ou inválido)</td></tr>
+<tr><td>403</td><td>Sem permissão (você não é admin deste servidor)</td></tr>
+<tr><td>404</td><td>Recurso não encontrado (servidor não existe ou bot não está nele)</td></tr>
+<tr><td>429</td><td>Rate limit atingido</td></tr>
+<tr><td>500</td><td>Erro interno do servidor</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout callout-info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-content">
+    <div class="callout-title">CORS</div>
+    <p>A API não envia headers CORS por default. Se quiser consumir de outro domínio, configure um proxy reverso (nginx/Cloudflare) que adiciona <code>Access-Control-Allow-Origin</code>.</p>
+  </div>
+</div>
+
+    </template>
+  </div>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
