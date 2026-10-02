@@ -129,7 +129,7 @@ function buildChrome(contentHtml) {
     <footer class="footer">
       <div>${t.footer}</div>
       <div class="footer-links">
-        <a href="https://github.com/Renato-dev1/starbot-docs" target="_blank">${t.editGithub}</a>
+        <a href="https://github.com/FetoyuDev/starbot-src" target="_blank">${t.editGithub}</a>
         <a href="${base}/faq.html">${t.faq}</a>
       </div>
     </footer>
