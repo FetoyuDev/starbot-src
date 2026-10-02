@@ -6,16 +6,52 @@
   <title>Admin Login — Starbot Docs</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .login-card .error-msg {
+      background: #fef2f2;
+      border: 1px solid #dc2626;
+      color: #dc2626;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+    [data-theme="dark"] .login-card .error-msg { background: #2a0d0d; }
+    .login-card .error-msg.show { display: block; }
+    .login-card .success-msg {
+      background: #ecfdf5;
+      border: 1px solid #16a34a;
+      color: #16a34a;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+    [data-theme="dark"] .login-card .success-msg { background: #052e1a; }
+    .login-card .success-msg.show { display: block; }
+  </style>
 </head>
 <body>
   <div class="login-container">
     <div class="login-card">
       <h1>🔐 Área Administrativa</h1>
       <p>Acesso restrito a administradores de servidores onde o Starbot está presente.</p>
-      <a href="https://discord.com/oauth2/authorize?client_id=963572780924809256&response_type=code&redirect_uri=https%3A%2F%2Fdoc-starbot.fefeh.fun%2Fapi%2Fcallback&scope=identify+guilds" class="btn-discord"; return false;" class="btn-discord">
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <!--
+        Botão direciona pra /admin/oauth-login que é uma Cloudflare Function.
+        Ela gera state CSRF + redireciona pro Discord com client_id correto.
+        NÃO usamos client_id hardcoded aqui — o backend cuida disso.
+      -->
+      <a href="/admin/oauth-login" class="btn-discord">
         <span>🎮</span>
         Entrar com Discord
       </a>
+
       <p style="margin-top: 24px; font-size: 13px; color: var(--text-muted);">
         Ao continuar, você concorda em usar esta área apenas para fins legítimos de administração de servidores.
       </p>
@@ -24,5 +60,50 @@
       </p>
     </div>
   </div>
+
+  <script>
+    // Mostra mensagem de erro ou sucesso baseado em query string.
+    // A Cloudflare Function oauth-callback redireciona pra cá quando algo dá errado,
+    // ou quando o user acabou de fazer logout com sucesso.
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const erro = params.get('erro');
+      const redirect = params.get('redirect');
+      const success = params.get('success');
+      const errorEl = document.getElementById('errorMsg');
+      const successEl = document.getElementById('successMsg');
+
+      const mensagensErro = {
+        'access_denied': 'Você cancelou o login no Discord.',
+        'parametros_invalidos': 'Parâmetros de login inválidos. Tente novamente.',
+        'estado_ausente': 'Sessão expirada. Tente novamente.',
+        'estado_invalido': 'Sessão inválida (possível ataque CSRF). Tente novamente.',
+        'token_falhou': 'Falha ao trocar código por token. Verifique as credenciais OAuth2 no servidor.',
+        'token_ausente': 'Token de acesso não retornado pelo Discord. Tente novamente.',
+        'fetch_user': 'Não foi possível buscar seus dados do Discord.',
+        'resposta_invalida': 'Resposta inválida do Discord. Tente novamente.',
+        'sem_admin': 'Você não é administrador de nenhum servidor onde o Starbot está presente.',
+        'interno': 'Erro interno no servidor. Tente novamente em instantes.',
+        'sescao_expirada': 'Sua sessão expirou. Faça login novamente.',
+      };
+
+      const mensagensSuccess = {
+        'logout': 'Você saiu da conta com sucesso.',
+      };
+
+      if (erro && mensagensErro[erro]) {
+        errorEl.textContent = '⚠️ ' + mensagensErro[erro];
+        errorEl.classList.add('show');
+      } else if (success && mensagensSuccess[success]) {
+        successEl.textContent = '✅ ' + mensagensSuccess[success];
+        successEl.classList.add('show');
+      }
+
+      // Se tem redirect param, salva pra usar depois do login
+      if (redirect) {
+        sessionStorage.setItem('admin_redirect_after_login', redirect);
+      }
+    })();
+  </script>
 </body>
 </html>
