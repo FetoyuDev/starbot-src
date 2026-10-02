@@ -7,90 +7,118 @@ Documentação oficial do bot **Starbot** — bot de Discord multifuncional com 
 ## 📁 Estrutura
 
 ```
-starbot-docs/
-├── index.html              # Redirecionamento para /pt/
-├── CNAME                   # Domínio customizado (doc-starbot.fefeh.fun)
+starbot-src/
+├── worker.js              # Cloudflare Worker único (rotas OAuth2 + serve estáticos)
+├── jwt.js                 # Helper JWT HMAC-SHA256
+├── wrangler.toml          # Config do Worker (assets + vars públicas)
 ├── .github/workflows/
-│   └── deploy.yml          # GitHub Actions que faz deploy automático
+│   └── deploy.yml         # Deploy via Wrangler
 ├── assets/
-│   ├── css/style.css       # Estilo principal (docs tradicional, claro/escuro)
+│   ├── css/style.css
 │   └── js/
-│       ├── layout.js       # Injeta header + sidebar + footer em cada página
-│       └── main.js         # Busca client-side, toggle de tema, mobile menu
-├── pt/                     # Documentação em português
-│   ├── index.html          # Home
-│   ├── getting-started.html
-│   ├── comandos.html
-│   ├── economia.html
-│   ├── moderacao.html
-│   ├── musica.html
-│   ├── tickets.html
-│   ├── minecraft.html
-│   ├── informacoes.html
-│   ├── diversao.html
-│   └── faq.html
-├── en/                     # Documentation in English
-│   ├── index.html
-│   ├── getting-started.html
-│   ├── commands.html
-│   ├── economy.html
-│   ├── moderation.html
-│   ├── music.html
-│   ├── tickets.html
-│   ├── minecraft.html
-│   ├── information.html
-│   ├── fun.html
-│   └── faq.html
-└── admin/                  # Área administrativa (protegida)
-    ├── login.html          # Tela de login OAuth2 Discord
-    ├── auth.js             # Helper de autenticação (referência)
-    ├── setup-avancado.html # Auto-mod, filtros de log, warns automático
-    ├── recursos.html       # Embed builder, tickets avançado, boas-vindas
-    └── api.html            # Documentação da API REST
+│       ├── layout.js      # Header + sidebar + footer
+│       ├── main.js        # Busca + tema + mobile menu
+│       └── admin-badge.js # Badge "logado como X"
+├── pt/                    # 11 páginas em português
+├── en/                    # 11 páginas em inglês
+└── admin/                 # Área admin (protegida por OAuth2)
+    ├── login.html
+    ├── auth.js
+    ├── setup-avancado.html
+    ├── recursos.html
+    └── api.html
 ```
 
-## 🚀 Deploy
+## 🚀 Deploy (Cloudflare Worker)
 
-O site é deployado automaticamente no GitHub Pages quando você faz push na branch `main`. Configure:
+Este site roda como **Cloudflare Worker** (não Pages). O `worker.js` faz tudo:
+- Serve arquivos estáticos (HTML/CSS/JS/imagens) via binding `ASSETS`
+- Processa rotas OAuth2 do Discord (`/admin/oauth-login`, `/admin/oauth-callback`, `/admin/oauth-logout`)
+- Protege rotas `/admin/*` (exige login)
+- Aplica headers de segurança (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
 
-1. **Crie um repositório no GitHub** (ex: `starbot-docs`)
-2. Faça push deste código:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial docs site"
-   git branch -M main
-   git remote add origin https://github.com/SEU_USER/starbot-docs.git
-   git push -u origin main
-   ```
-3. **Ative o GitHub Pages:** vá em Settings → Pages → Source: **GitHub Actions**
-4. **Configure o domínio customizado:**
-   - Vá em Settings → Pages → Custom domain
-   - Digite: `doc-starbot.fefeh.fun`
-   - Marque "Enforce HTTPS"
-5. **Configure o DNS do seu domínio** (`fefeh.fun`):
-   - Adicione um registro CNAME: `doc-starbot` → `starbot-docs.pages.dev` ou `SEU_USER.github.io`
-   - Aguarde propagação (até 24h, geralmente 15min)
+### Configuração inicial
 
-## 🔐 Área Admin (OAuth2 Discord)
+#### 1. Instalar Wrangler CLI
 
-A área `/admin` exige login via Discord OAuth2. Como o site é estático (GitHub Pages), o OAuth2 precisa de um backend leve. Opções:
+```bash
+npm install -g wrangler
+wrangler login
+```
 
-### Opção 1: Cloudflare Pages Functions (recomendado, grátis)
-- Faça fork do repositório para o Cloudflare Pages
-- Crie a função em `functions/admin/oauth-callback.js` que processa o código OAuth2
-- Configure as variáveis de ambiente: `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`
+#### 2. Deploy do Worker
 
-### Opção 2: Vercel Serverless Functions
-- Importe o repo no Vercel
-- Crie `api/oauth-callback.js`
-- Configure as variáveis de ambiente no painel da Vercel
+```bash
+cd starbot-src
+wrangler deploy
+```
 
-### Opção 3: Manter admin como "público" (sem OAuth2 real)
-- Útil se você só quer esconder dos usuários comuns, sem segurança real
-- Use um password simples em JavaScript (fraco, mas funcional)
+#### 3. Configurar domínio customizado
 
-A documentação atual usa a Opção 3 por padrão (página de login com botão Discord, mas sem backend real). Você precisará implementar o backend OAuth2 em uma das opções acima.
+No dashboard da Cloudflare → Workers & Pages → `starbot-src` → Settings → Domains:
+- Adicione: `doc-starbot.fefeh.fun`
+
+Ou via `wrangler.toml`:
+```toml
+routes = [
+  { pattern = "doc-starbot.fefeh.fun/*", custom_domain = true }
+]
+```
+
+### Variáveis de ambiente (Settings → Variables and Secrets)
+
+| Nome | Tipo | Valor |
+|---|---|---|
+| `DISCORD_CLIENT_ID` | Var (pública) | `963572780924809256` (já no wrangler.toml) |
+| `DISCORD_REDIRECT_URI` | Var (pública) | `https://doc-starbot.fefeh.fun/admin/oauth-callback` (já no wrangler.toml) |
+| `DISCORD_CLIENT_SECRET` | **Secret** | (do Discord Developer Portal → OAuth2 → Reset Secret) |
+| `JWT_SECRET` | **Secret** | (rode: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`) |
+
+Adicione os secrets via CLI:
+```bash
+wrangler secret put DISCORD_CLIENT_SECRET
+wrangler secret put JWT_SECRET
+```
+
+Ou via dashboard: Workers & Pages → `starbot-src` → Settings → Variables and Secrets → Add.
+
+### Discord Developer Portal
+
+Em OAuth2 → Redirects, adicione:
+```
+https://doc-starbot.fefeh.fun/admin/oauth-callback
+```
+
+## 🔐 Como funciona a autenticação
+
+```
+[Browser] → /admin/login.html → clica "Entrar com Discord"
+   ↓
+[Worker] /admin/oauth-login → gera state CSRF, seta cookie httpOnly, redireciona pro Discord
+   ↓
+[Discord] usuário autoriza → redireciona pra /admin/oauth-callback?code=xxx&state=yyy
+   ↓
+[Worker] /admin/oauth-callback
+   1. Valida state CSRF contra cookie
+   2. Troca code por access_token (com DISCORD_CLIENT_SECRET)
+   3. Busca /users/@me e /users/@me/guilds
+   4. Filtra só guilds onde user é admin (ADMINISTRATOR ou MANAGE_GUILD)
+   5. Se 0 guilds admin → redirect pro login com erro "sem_admin"
+   6. Cria JWT assinado HMAC-SHA256 com payload {uid, username, avatar, guilds, exp: 7 dias}
+   7. Seta cookie httpOnly starbot_admin_session
+   ↓
+[Browser] → /admin/setup-avancado.html (autenticado, badge "logado como X" aparece)
+```
+
+### Segurança implementada
+
+- ✅ `access_token` do Discord **nunca** vai pro frontend (só JWT interno)
+- ✅ JWT assinado com HMAC-SHA256 (timing-safe verification)
+- ✅ Cookies httpOnly (JS não lê) + Secure (só HTTPS) + SameSite=Lax
+- ✅ State CSRF com 32 bytes aleatórios, validado contra cookie
+- ✅ Headers de segurança em todas as respostas
+- ✅ Middleware bloqueia não-admins (precisa ser admin de pelo menos 1 servidor)
+- ✅ Sessão expira em 7 dias
 
 ## 🌍 Idiomas
 
@@ -99,20 +127,6 @@ A documentação está em **português (pt-BR)** e **inglês (en-US)**. Para adi
 1. Crie a pasta `/es/` (para espanhol)
 2. Copie os arquivos de `/pt/` e traduza
 3. Atualize o `assets/js/layout.js` para incluir o novo idioma
-4. Adicione as traduções do chrome no objeto `T`
-
-## 🎨 Personalização
-
-Edite `assets/css/style.css` para mudar cores, fontes e layout. As variáveis CSS no topo do arquivo controlam toda a identidade visual:
-
-```css
-:root {
-  --accent: #3954cf;      /* Cor principal */
-  --bg: #ffffff;           /* Fundo (claro) */
-  --text: #1a1d24;         /* Texto */
-  /* ... etc */
-}
-```
 
 ## 📝 Licença
 
