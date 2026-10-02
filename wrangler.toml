@@ -13,6 +13,6 @@ binding = "ASSETS"
 #   wrangler secret put DISCORD_CLIENT_SECRET
 #   wrangler secret put JWT_SECRET
 # Ou via dashboard da Cloudflare → Settings → Variables and Secrets
-[vars]
+[previews.vars]
 DISCORD_CLIENT_ID = "963572780924809256"
 DISCORD_REDIRECT_URI = "https://doc-starbot.fefeh.fun/admin/oauth-callback"
