@@ -9,7 +9,7 @@
 
 // Configuração OAuth2 — preencha com seus dados do Discord Developer Portal
 const OAUTH_CONFIG = {
-  clientId: 'SEU_CLIENT_ID',
+  clientId: '963572780924809256',
   redirectUri: 'https://doc-starbot.fefeh.fun/admin/oauth-callback',
   scope: 'identify guilds',
   authUrl: 'https://discord.com/oauth2/authorize',
