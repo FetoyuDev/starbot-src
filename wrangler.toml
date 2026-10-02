@@ -1,5 +1,18 @@
 name = "starbot-src"
-pages_build_output_dir = "."
+main = "worker.js"
+compatibility_date = "2024-09-25"
 
+# Assets (arquivos estáticos servidos pelo Worker)
+# O binding ASSETS permite que o worker.js sirva HTML/CSS/JS/imagens
+[assets]
+directory = "."
+binding = "ASSETS"
+
+# Variáveis de ambiente públicas (não secretas)
+# Secrets (DISCORD_CLIENT_SECRET, JWT_SECRET) devem ser adicionados via:
+#   wrangler secret put DISCORD_CLIENT_SECRET
+#   wrangler secret put JWT_SECRET
+# Ou via dashboard da Cloudflare → Settings → Variables and Secrets
 [vars]
 DISCORD_CLIENT_ID = "963572780924809256"
+DISCORD_REDIRECT_URI = "https://doc-starbot.fefeh.fun/admin/oauth-callback"
