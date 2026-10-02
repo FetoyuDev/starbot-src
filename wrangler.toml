@@ -1,4 +1,5 @@
 name = "starbot-src"
+pages_build_output_dir = "."
 
 [vars]
 DISCORD_CLIENT_ID = "963572780924809256"
